@@ -5,6 +5,9 @@ description = "get league of legends related information and analysis in seconds
 authors = ["Ruoyu Zhu"]
 license = "MIT"
 readme = "README.md"
+documentation = 'https://league-piper.readthedocs.io/en/latest/'
+homepage = "https://github.com/zhuryaaron/league_piper"
+repository = "https://github.com/zhuryaaron/league_piper"
 
 [tool.poetry.dependencies]
 python = "^3.9"
