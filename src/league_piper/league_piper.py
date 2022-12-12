@@ -40,7 +40,7 @@ def get_account_basic(key, summoner_name):
     data: dictionary
         dictionary that contains summoner's rank information
     """
-    encrypted_summoner_id = get_account_info(summoner_name)['id']
+    encrypted_summoner_id = get_account_info(key, summoner_name)['id']
     r = requests.get("https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/"+
         encrypted_summoner_id+"?api_key="+key)
     data = r.json()
@@ -115,11 +115,11 @@ def get_summoner_recent_games(key, summoner_name, count = 10):
     data: dataframe
         dataframe that contains match information for recent games such as kills, deaths and etc..
     """
-    info = get_account_info(summoner_name)
-    match_list = get_match_list(info['puuid'], count)
+    info = get_account_info(key, summoner_name)
+    match_list = get_match_list(key, info['puuid'], count)
     results = []
     for match in match_list:
-        match_info = get_match_info(match)
+        match_info = get_match_info(key, match)
         for player in match_info['info']['participants']:
             if player['puuid'] == info['puuid']:
                 results.append([player['kills'],player['deaths'],player['assists'],player['championName'],player['lane'],player['win']])
@@ -142,13 +142,13 @@ def get_player_friend_list(key, summoner_name):
     df1: dataframe
         dataframe that contains the friend list that summoner played with
     """
-    info = get_account_info(summoner_name)
-    match_list = get_match_list(puuid = info['puuid'])
+    info = get_account_info(key, summoner_name)
+    match_list = get_match_list(key, info['puuid'])
     results = []
     for match in match_list:
         win_flag = False
         temp = []
-        match_info = get_match_info(match)
+        match_info = get_match_info(key, match)
         for player in match_info['info']['participants']:
             if player['puuid'] == info['puuid']:
                 win_flag = player['win']
@@ -184,8 +184,8 @@ def compare_two_player(key, summoner1, summoner2):
     df: dataframe
         dataframe that contains statistic comparison between two players
     """
-    df1 = get_summoner_recent_games(summoner1, 20)
-    df2 = get_summoner_recent_games(summoner2, 20)
+    df1 = get_summoner_recent_games(key, summoner1, 20)
+    df2 = get_summoner_recent_games(key, summoner2, 20)
     dict = {}
     dict[summoner1] = [df1['kills'].mean(),df1['deaths'].mean(),df1['assists'].mean()]
     dict[summoner2] = [df2['kills'].mean(),df2['deaths'].mean(),df2['assists'].mean()]
@@ -210,7 +210,7 @@ def get_fav_champion(key, summoner_name):
     im: image
         image of the summoner's favorite champion
     """
-    encrypted_summoner_id = get_account_info(summoner_name)['id']
+    encrypted_summoner_id = get_account_info(key, summoner_name)['id']
     r = requests.get('https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'
                      +encrypted_summoner_id+'?api_key='+key)
     versions = requests.get('https://ddragon.leagueoflegends.com/api/versions.json')

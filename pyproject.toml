@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "league_piper"
-version = "0.1.0"
+version = "0.1.1"
 description = "get league of legends related information and analysis in seconds"
 authors = ["Ruoyu Zhu"]
 license = "MIT"
