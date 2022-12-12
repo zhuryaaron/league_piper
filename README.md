@@ -10,7 +10,7 @@ $ pip install league_piper
 
 ## Usage
 
-- TODO
+- To be announced
 
 ## Contributing
 
