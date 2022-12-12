@@ -115,7 +115,7 @@ def get_summoner_recent_games(key, summoner_name, count = 10):
     data: dataframe
         dataframe that contains match information for recent games such as kills, deaths and etc..
     """
-    info = get_account_info(key, summoner_name)
+    info = get_account_info(key, summoner_name = summoner_name)
     match_list = get_match_list(key, info['puuid'], count)
     results = []
     for match in match_list:
@@ -142,7 +142,7 @@ def get_player_friend_list(key, summoner_name):
     df1: dataframe
         dataframe that contains the friend list that summoner played with
     """
-    info = get_account_info(key, summoner_name)
+    info = get_account_info(key, summoner_name = summoner_name)
     match_list = get_match_list(key, info['puuid'])
     results = []
     for match in match_list:
@@ -210,7 +210,7 @@ def get_fav_champion(key, summoner_name):
     im: image
         image of the summoner's favorite champion
     """
-    encrypted_summoner_id = get_account_info(key, summoner_name)['id']
+    encrypted_summoner_id = get_account_info(key, summoner_name = summoner_name)['id']
     r = requests.get('https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'
                      +encrypted_summoner_id+'?api_key='+key)
     versions = requests.get('https://ddragon.leagueoflegends.com/api/versions.json')
